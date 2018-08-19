@@ -1,0 +1,8 @@
+{
+  "acl_datacenter":"us-central1-c",
+  "datacenter":"us-central1-c",
+  "acl_default_policy":"deny",
+  "acl_down_policy":"deny",
+  "acl_master_token":"C4213989-B836-4A8F-A649-110803BCCDC3 <<USE YOUR OWN HERE SEE DOCS>>",
+  "encrypt": "YHF7itDw6D0bqWwfiVMxTA== <<USE YOUR OWN HERE SEE DOCS>>"
+}
