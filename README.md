@@ -1,4 +1,4 @@
-# Running Consul+Vault on Kubernetes
+# Running Consul and Vault(with Kata Containers) on Kubernetes
 
 This process will bring up a 3-member consul cluster and a two vault servers running in an HA configuration. This is originally tested on GCE but can work in other public clouds such as AWS, Azure and private clouds using something like OpenStack.
 
