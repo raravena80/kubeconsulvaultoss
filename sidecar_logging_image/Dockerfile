@@ -10,7 +10,7 @@
 # has been enabled for the project in the Google Developer Console.
 
 FROM gcr.io/google_containers/fluentd-sidecar-gcp:1.4
-MAINTAINER Randy Fay "rfay@newmediadenver.com"
+MAINTAINER Ricardo Aravena` "raravena80@gmail.com"
 
 # Copy the configuration file generator for creating input configurations for
 # each file specified in the FILES_TO_COLLECT environment variable.
