@@ -54,7 +54,7 @@ $ kubectl create secret generic consul-config --from-file=your_config/consul_con
 Create one deployment per consul member. The Consul version is 1.2.2 and this has not been tested with Kata Containers yet.
 
 ``` sh
-$ kubectl apply -f deployments/consul-1.yaml -f deployments/consul-2.yaml -f deployments/consul-3.yaml
+$ kubectl apply -f consul-deployments
 ```
 
 ``` sh
@@ -197,7 +197,7 @@ $ kubectl get svc vault-lb
 This deploys Vault version 0.10.4. You are now ready to deploy the Vault instances:
 
 ``` sh
-$ kubectl apply -f deployments/vault-1.yaml -f deployments/vault-2.yaml
+$ kubectl apply -f vault-deployments
 ```
 
 You should see something like this:
