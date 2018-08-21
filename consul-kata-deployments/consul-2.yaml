@@ -1,0 +1,78 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: consul-2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: consul
+        member: consul-2
+      annotations:
+        io.kubernetes.cri-o.TrustedSandbox: "false"
+        io.kubernetes.cri.untrusted-workload: "true"
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: consul
+          image: "consul:1.2.2"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
+          args:
+            - "agent"
+            - "-ui"
+            - "-node=consul-2"
+            - "-data-dir=/var/lib/consul"
+            - "-server"
+            - "-bootstrap-expect=3"
+            - "-advertise=$(CONSUL_2_SERVICE_HOST)"
+            - "-client=0.0.0.0"
+            - "-rejoin"
+            - "-retry-join=$(CONSUL_1_SERVICE_HOST)"
+            - "-config-dir=/etc/consul"
+          ports:
+            - containerPort: 8300
+              name: server
+            - containerPort: 8301
+              name: serflan-tcp
+              protocol: "TCP"
+            - containerPort: 8301
+              name: serflan-udp
+              protocol: "UDP"
+            - containerPort: 8302
+              name: serfwan-tcp
+              protocol: "TCP"
+            - containerPort: 8302
+              name: serfwan-udp
+              protocol: "UDP"
+            - containerPort: 8400
+              name: rpc-port
+            - containerPort: 8500
+              name: api-port
+            - containerPort: 8600
+              name: consuldns-tcp
+              protocol: "TCP"
+            - containerPort: 8600
+              name: consuldns-udp
+              protocol: "UDP"
+          volumeMounts:
+            - mountPath: /var/lib/consul
+              name: data
+            - name: "consulconfig"
+              mountPath: /etc/consul
+      volumes:
+        - name: data
+          gcePersistentDisk:
+            pdName: consul-2
+            fsType: ext4
+        - name: "consulconfig"
+          "secret": {
+            "secretName": "consul-config"
+          }
